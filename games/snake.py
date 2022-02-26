@@ -23,7 +23,7 @@ class Game:
         self._score = 0
 
         self._snake_body = [[3, 3]]
-        self._snake_dir = 'right'
+        self._stick_input = 'right'
 
         atexit.register(self._sense.clear)
 
@@ -58,13 +58,14 @@ class Game:
 
     def handle_input(self) -> dir:
         for event in self._sense.stick.get_events():
-            if (new_dir := event.direction) != 'middle':
-                if new_dir == 'left' and self._snake_dir == 'right': continue
-                if new_dir == 'right' and self._snake_dir == 'left': continue
-                if new_dir == 'up' and self._snake_dir == 'down': continue
-                if new_dir == 'down' and self._snake_dir == 'up': continue
+            if (new_input := event.direction) != 'middle':
+                if len(self._snake_body) > 1:
+                    if new_input == 'left' and self._stick_input == 'right': continue
+                    if new_input == 'right' and self._stick_input == 'left': continue
+                    if new_input == 'up' and self._stick_input == 'down': continue
+                    if new_input == 'down' and self._stick_input == 'up': continue
 
-                self._snake_dir = event.direction
+                self._stick_input = event.direction
 
     def run(self) -> None:
         apple_pos = self.create_apple()
@@ -76,7 +77,7 @@ class Game:
 
             x, y = self._snake_body[-1]
 
-            d_x, d_y = dir_move[self._snake_dir]
+            d_x, d_y = dir_move[self._stick_input]
             new_pos = [x + d_x, y + d_y]
 
             if not all(p in range(8) for p in new_pos) or new_pos in self._snake_body[1:]:
