@@ -1,7 +1,8 @@
 import atexit
 from time import sleep
+from random import choice
 from typing import Union, Tuple
-from random import randint, choice
+
 from sense_hat import SenseHat
 
 
