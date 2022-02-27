@@ -13,8 +13,8 @@ dir_move = {
     'right': [1, 0],
 }
 
-SNAKE_COLOR = (0, 255, 0)
-APPLE_COLOR = (255, 0 ,0)
+SNAKE_COLOR = (0, 100, 0)
+APPLE_COLOR = (100, 0 ,0)
 
 class Game:
     def __init__(self) -> None:
@@ -29,7 +29,7 @@ class Game:
         atexit.register(self._sense.clear)
 
     def end_screen(self, msg: str) -> None:
-        self._sense.show_message(msg)
+        self._sense.show_message(msg, text_colour=(100, 100, 100))
         exit()
 
     def create_apple(self) -> Union[Tuple[int, int], None]:
@@ -50,7 +50,7 @@ class Game:
         x, y = self._snake_body[-1]
 
         for _ in range(3):
-            self._sense.set_pixel(x, y, (255, 255, 255))
+            self._sense.set_pixel(x, y, (100, 100, 100))
             sleep(0.2)
             self._sense.set_pixel(x, y, SNAKE_COLOR)
             sleep(0.2)
